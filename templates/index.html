@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Project1</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .navbar {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .jumbotron {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .site-title {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <span class="site-title">Project1</span>
+        </a>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="display-4">Добро пожаловать на Project1!</h1>
+        {% for item in data %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.product_name }}</h5>
+                    <p class="card-text">Старая цена: {{ item.old_price }}</p>
+                    <p class="card-text">Скидка: {{ item.discount_value }}</p>
+                    <p class="card-text">Новая цена: {{ item.current_price }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="footer">
+        <p>&copy; 2023 Project1</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
