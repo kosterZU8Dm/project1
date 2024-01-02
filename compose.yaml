@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
 #     target: build
-    container_name: flask-app
+    container_name: project1
     restart: always
     command: ...
     depends_on:

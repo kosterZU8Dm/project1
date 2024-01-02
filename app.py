@@ -12,9 +12,13 @@ collection_name = os.getenv("COLLECTION_NAME")
 
 @app.route('/')
 def index():
-    # Получаем данные из MongoDB
-    data_from_mongo = mongo.db[collection_name].find()
-    return render_template('index.html', data=data_from_mongo)
+    try:
+        data_from_mongo = mongo.db[collection_name].find()
+        if data_from_mongo.count() == 0:
+            return render_template('index.html', message='Нет данных в MongoDB')
+        return render_template('index.html', data=data_from_mongo)
+    except Exception as e:
+        return render_template('index.html', message=f'Ошибка подключения к MongoDB: {str(e)}')
 
 if __name__ == '__main__':
     app.run(debug=True)

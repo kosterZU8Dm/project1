@@ -1,7 +1,7 @@
 FROM python:3.12.1-alpine3.19.0
 LABEL maintainer="kostochka11@proton.me"
 
-ARG WORK_DIR=/opt/app
+ARG WORK_DIR=/opt/project1
 USER root
 RUN mkdir -p $WORK_DIR
 WORKDIR $WORK_DIR
