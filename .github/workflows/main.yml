@@ -1,8 +1,0 @@
-name: Demo Workflow
-on: workflow_dispatch # Ручной запуск
-jobs:
-  print:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print to console
-        run: echo DemoWorkflow
