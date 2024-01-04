@@ -5,3 +5,8 @@ uses: actions/setup-python@v2
 uses: actions/checkout@v2
 Это клонирование репозитория в билд-машину github
 
+needs:
+Это означает, что пока упсешно не выполнится заданная задача, перехода дальше не будет
+
+${{ secrets.SECRET_NAME }}
+Settings -> New repository secret -> SSH_PRIVATE_KEY
