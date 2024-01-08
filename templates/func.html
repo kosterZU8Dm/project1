@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Form</title>
+</head>
+<body>
+    <form method="POST">
+        <div id="fields">
+            <div class="field">
+                <input type="number" name="number" required>
+                <input type="text" name="text" required>
+            </div>
+        </div>
+
+        <button type="button" onclick="addField()">Добавить</button>
+        <button type="submit">Посчитать</button>
+
+        {% if total is defined %}
+            <p>Сумма чисел: {{ total }}</p>
+            <p>Тексты:</p>
+            <ul>
+                {% for text in texts %}
+                    <li>{{ loop.index }}. {{ text }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
+
+    <script>
+        function addField() {
+            var fieldsContainer = document.getElementById('fields');
+            var newField = document.createElement('div');
+            newField.className = 'field';
+            newField.innerHTML = `
+                <input type="number" name="number" required>
+                <input type="text" name="text" required>
+            `;
+            fieldsContainer.appendChild(newField);
+        }
+    </script>
+</body>
+</html>
