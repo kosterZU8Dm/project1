@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  project1:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+#     target: build
+    container_name: project1
+    restart: always
+    command: ...
+    depends_on:
+      - project1-nginx
+      - project1-postgres
+    healthcheck:
+      test: ["CMD-SHELL", " || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+  project1-nginx:
+    images: nginx:1.25.3
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/tmp/nginx.conf
+    ports:
+      - "80:80"
+
+  project1-postgres:
+    images: postgres:16
+    restart: unless-stopped
