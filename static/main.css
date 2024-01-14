@@ -24,6 +24,11 @@ body {
     opacity: 0;
     animation: fadeIn 2s forwards;
 }
+.divider {
+    border-top: 2px solid black;
+    margin-top: 20px; /* Регулируйте отступ сверху по вашему усмотрению */
+    margin-bottom: 20px; /* Регулируйте отступ снизу по вашему усмотрению */
+}
 @keyframes fadeIn {
     from {
         opacity: 0;

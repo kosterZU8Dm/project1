@@ -31,6 +31,18 @@ def index():
     except Exception as e:
         return render_template('index.html', message=f'Ошибка подключения к MongoDB: {str(e)}')
 
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    texts = request.form.getlist('texts[]')
+    numbers = [int(num) for num in request.form.getlist('numbers[]')]
+
+    result = {
+        'sum': sum(numbers),
+        'texts': ', '.join(texts),
+    }
+
+    return render_template('index.html', result=result)
+
 if __name__ == '__main__':
     with app.app_context(): # выполнение операций, требующих доступа к приложению.
         db.create_all()  # создаст таблицу в базе данных, если её еще нет.
