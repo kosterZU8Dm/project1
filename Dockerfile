@@ -6,7 +6,6 @@ USER root
 RUN mkdir -p $WORK_DIR
 WORKDIR $WORK_DIR
 COPY ./* .
-RUN pip3 install -r requirements.txt
-CMD ["gunicorn"]
-#ENTRYPOINT ["--bind", "0.0.0.0:8000", "app:app"]
-ENTRYPOINT ["-w 4", "-b 0.0.0.0:8000", "app:app"]
+RUN apk add libpq-dev && pip3 install -r requirements.txt
+ENTRYPOINT ["gunicorn"]
+CMD ["-w 4", "-b 0.0.0.0:8000", "app:app"]

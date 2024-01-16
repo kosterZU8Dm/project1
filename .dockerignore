@@ -1,5 +1,6 @@
 /venv
-.env
 compose.yaml
 .gitignore
 /nginx
+make_dotEnv.sh
+/.github
