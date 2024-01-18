@@ -43,6 +43,10 @@ def calculate():
 
     return render_template('index.html', result=result)
 
+@app.route('/send2postgresql', methods=['POST'])
+def send2postgresql():
+
+
 if __name__ == '__main__':
     with app.app_context(): # выполнение операций, требующих доступа к приложению.
         db.create_all()  # создаст таблицу в базе данных, если её еще нет.

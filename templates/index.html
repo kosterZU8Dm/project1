@@ -39,8 +39,11 @@
             <div id="fields"></div>
 
             <div class="form-group">
-                <button type="submit">Подсчитать</button>
+                <button type="submit" onclick="addPostgresqlButton()">Подсчитать</button>
             </div>
+
+            <div id="postgresqlField"></div>
+
         </form>
 
         {% if result %}
@@ -73,6 +76,17 @@
             container.appendChild(textInput);
             container.appendChild(numberInput);
         }
+    </script>
+    <script>
+        function addPostgresqlButton() {
+            var container = document.getElemenetById("postgresqlField");
+            var postgresqlButton = document.createElement("button");
+	    postgresqlButton.type = "submit";
+	    postgresqlButton.name = "send2db";
+	    postgresqlButtin.value = "Отправить доанные в PostgreSQL";
+
+	    container.appendChild(postgresqlButton);
+	}
     </script>
 
 </body>
