@@ -44,8 +44,8 @@ def index():
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
-    texts = request.form.getlist('texts[]')
-    numbers = [int(num) for num in request.form.getlist('numbers[]')]
+    texts = request.form.getlist('texts[]') # используется для получения списка значений, связанных с указанным ключом 
+    numbers = [int(num) for num in request.form.getlist('numbers[]')] # создает новый список, преобразовывая каждое значение
 
     result = {
         'sum': sum(numbers),
@@ -56,7 +56,7 @@ def calculate():
 
 @app.route('/send_to_postgres', methods=['POST'])
 def send_to_postgres():
-    texts = request.form.getlist('texts[]')
+    texts = request.form.getlist('texts[]') # используется для получения списка значений, связанных с указанным ключом 
     numbers = [int(num) for num in request.form.getlist('numbers[]')]
 
     data_to_insert = [{'text_column': text, 'number_column': num} for text, num in zip(texts, numbers)]
