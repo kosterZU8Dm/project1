@@ -31,20 +31,24 @@
     </div>
     <div class="divider"></div>
     <div class="container mt-5">
-        <form method="post" action="{{ url_for('calculate') }}">
+        <form id="calculate-form" method="post" action="javascript:void(0);">
             <div class="form-group">
                 <button type="button" onclick="addFields()">Добавить поля</button>
             </div>
-
+    
             <div id="fields"></div>
-
+    
             <div class="form-group">
-                <button type="submit" onclick="addPostgresqlButton()">Подсчитать</button>
+                <button type="button" onclick="calculate()">Подсчитать</button>
             </div>
-
-            <div id="postgresqlField"></div>
-
         </form>
+    
+        <div id="result"></div>
+    
+        <div class="form-group">
+            <button id="sendToPostgresButton" type="button" onclick="sendToPostgres()" style="display: none;">Отправить в PostgreSQL</button>
+        </div>
+    </div>
 
         {% if result %}
             <div class="result">
@@ -67,26 +71,48 @@
             textInput.type = "text";
             textInput.name = "texts[]";
             textInput.placeholder = "Текст";
-
+    
             var numberInput = document.createElement("input");
             numberInput.type = "number";
             numberInput.name = "numbers[]";
             numberInput.placeholder = "Число";
-
+    
             container.appendChild(textInput);
             container.appendChild(numberInput);
         }
-    </script>
-    <script>
-        function addPostgresqlButton() {
-            var container = document.getElemenetById("postgresqlField");
-            var postgresqlButton = document.createElement("button");
-	    postgresqlButton.type = "submit";
-	    postgresqlButton.name = "send2db";
-	    postgresqlButtin.value = "Отправить доанные в PostgreSQL";
-
-	    container.appendChild(postgresqlButton);
-	}
+    
+        function calculate() {
+            var formData = new FormData(document.getElementById("calculate-form"));
+    
+            fetch("{{ url_for('calculate') }}", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = `
+                    <p>Сумма чисел: ${data.result.sum}</p>
+                    <p>Текстовые поля: ${data.result.texts}</p>
+                `;
+    
+                document.getElementById("sendToPostgresButton").style.display = "block";
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    
+        function sendToPostgres() {
+            var formData = new FormData(document.getElementById("calculate-form"));
+    
+            fetch("{{ url_for('send_to_postgres') }}", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Или выполните другие действия при успешной отправке в PostgreSQL
+            })
+            .catch(error => console.error("Error:", error));
+        }
     </script>
 
 </body>
