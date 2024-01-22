@@ -1,0 +1,20 @@
+#!/bin/bash
+
+ENV_FILE="./.env"
+POESTGRES_ENV_FILE="./.postgres.env"
+
+touch $ENV_FILE
+cat <<EOF > $ENV_FILE
+MONGO_URI = "mongodb://xxx:27017/xxx"
+COLLECTION_NAME = "xxx"
+POSTGRES_DB=items
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+EOF
+
+touch $POESTGRES_ENV_FILE
+cat <<EOF > $POESTGRES_ENV_FILE
+POSTGRES_DB=items
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+EOF

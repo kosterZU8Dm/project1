@@ -1,21 +1,21 @@
 version: '3.8'
 
 services:
-  project1:
+  project1-webapplication:
     build:
       context: .
       dockerfile: ./Dockerfile
 #     target: build
     container_name: project1
     restart: always
-    command: ...
+#    command:
     depends_on:
       - project1-nginx
       - project1-postgres
     healthcheck:
-      test: ["CMD-SHELL", " || exit 1"]
+      test: ["CMD", "curl", "--fail", "http://localhost:8000/healthcheck"]
       interval: 10s
-      timeout: 10s
+      timeout: 3s
       retries: 3
 
   project1-nginx:
@@ -27,5 +27,11 @@ services:
       - "80:80"
 
   project1-postgres:
-    images: postgres:16
-    restart: unless-stopped
+    image: postgres:16
+    container_name: project1_psql
+    ports:
+      - "5432:5432"
+    env_file:
+     - ./postgres.env
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
