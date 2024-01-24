@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
 #     target: build
-    container_name: project1
+    container_name: project1_webapp
     restart: always
 #    command:
     depends_on:
@@ -21,10 +21,11 @@ services:
   project1-nginx:
     images: nginx:1.25.3
     restart: always
-    volumes:
-      - ./nginx/nginx.conf:/tmp/nginx.conf
+    container_name: project1_nginx
     ports:
       - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/tmp/nginx.conf
 
   project1-postgres:
     image: postgres:16
@@ -35,3 +36,14 @@ services:
      - ./postgres.env
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
+
+  project1-mongodb:
+    image: mongo:6.0.13
+    container_name: project1_mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./data:/data/db
